@@ -17,7 +17,7 @@ $pkg_build_deps = @("qago/strings")
 
 function Invoke-Unpack {
     If (!$pkg_version) {
-	$script:pkg_version=$(strings -nobanner "$HAB_CACHE_SRC_PATH\$pkg_filename" | select-string Copyright | select-object -First 1).Line.Split(' ')[0]
+	$script:pkg_version=$("$(Get-HabPackagePath strings)/bin/strings.exe" -nobanner "$HAB_CACHE_SRC_PATH\$pkg_filename" | select-string Copyright | select-object -First 1).Line.Split(' ')[0]
 	$script:pkg_dirname="$pkg_name-$pkg_version"
 	$script:pkg_prefix="$HAB_PKG_PATH/$pkg_origin/$pkg_name/$pkg_version/$pkg_release"
 	$script:pkg_artifact="$HAB_CACHE_ARTIFACT_PATH/$pkg_origin-$pkg_name-$pkg_version-$pkg_release-$pkg_target.$_artifact_ext"
