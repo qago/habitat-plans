@@ -22,16 +22,17 @@ function Invoke-Unpack {
 	$script:pkg_prefix="$HAB_PKG_PATH/$pkg_origin/$pkg_name/$pkg_version/$pkg_release"
 	$script:pkg_artifact="$HAB_CACHE_ARTIFACT_PATH/$pkg_origin-$pkg_name-$pkg_version-$pkg_release-$pkg_target.$_artifact_ext"
     }
-    Start-Process "msiexec.exe" -Wait -ArgumentList "/qn","/i","$HAB_CACHE_SRC_PATH\$pkg_filename"
+    echo "$HAB_CACHE_SRC_PATH\$pkg_filename"
+    # Start-Process "msiexec.exe" -Wait -ArgumentList "/qn","/i","$HAB_CACHE_SRC_PATH\$pkg_filename"
 }
 
 function Invoke-Verify { }
 
 function Invoke-Install {
-    Copy-Item "C:\Program Files (x86)\Google\Chrome\Application\*" "$pkg_prefix/bin" -Recurse -Force
+    # Copy-Item "C:\Program Files (x86)\Google\Chrome\Application\*" "$pkg_prefix/bin" -Recurse -Force
 }
 
 function Invoke-End {
-    echo 'cleaning up'
-    Start-Process "msiexec.exe" -Wait -ArgumentList "/qn","/x","$HAB_CACHE_SRC_PATH\$pkg_filename"
+    # echo 'cleaning up'
+    # Start-Process "msiexec.exe" -Wait -ArgumentList "/qn","/x","$HAB_CACHE_SRC_PATH\$pkg_filename"
 }
