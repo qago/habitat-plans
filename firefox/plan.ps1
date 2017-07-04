@@ -5,7 +5,7 @@ $pkg_license=@("LGPL")
 $pkg_upstream_url="https://www.mozilla.org"
 $pkg_description="firefox"
 $pkg_maintainer="QAGO Maintainers"
-$pkg_source="http://download.mozilla.org/?product=firefox-54.0&os=win&lang=en-US"
+$pkg_source="http://download.mozilla.org/?product=firefox-$pkg_version&os=win&lang=en-US"
 $pkg_shasum="84828015baff99df74c3324e99dee2679873d75285dd37a62ec3ff0cb3eb5ef8"
 $pkg_filename="firefox_setup.exe"
 $pkg_bin_dirs=@("core")
