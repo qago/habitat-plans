@@ -1,6 +1,6 @@
 $pkg_name="selenoid"
 $pkg_origin="qago"
-$pkg_version="1.2.1a"
+$pkg_version="1.2.1b"
 $pkg_license=@("LGPL")
 $pkg_upstream_url="https://github.com/aerokube/selenoid"
 $pkg_description="selenoid"

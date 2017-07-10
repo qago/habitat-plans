@@ -6,7 +6,8 @@ $pkg_upstream_url="https://github.com/aerokube/selenoid"
 $pkg_description="selenoid chrome node"
 $pkg_maintainer="QAGO Maintainers"
 $pkg_source="_no_pkg_source_"
-$pkg_deps=@("qago/selenoid","qago/google-chrome","qago/chromedriver")
+$pkg_build_deps=@("qago/google-chrome","qago/chromedriver")
+$pkg_bin_dirs=@("bin")
 
 function Invoke-Download { }
 
@@ -22,6 +23,9 @@ function Set-PackageVersion {
     $script:pkg_artifact="$HAB_CACHE_ARTIFACT_PATH/$pkg_origin-$pkg_name-$pkg_version-$pkg_release-$pkg_target.$_artifact_ext"
 }
 
-function Invoke-Install { }
+function Invoke-Install {
+    Copy-Item "$(Get-HabPackagePath 'google-chrome')/bin" "$pkg_prefix" -Recurse -Force
+    Copy-Item "$(Get-HabPackagePath 'chromedriver')/bin" "$pkg_prefix" -Recurse -Force
+}
 
 function Invoke-Verify { }
