@@ -6,7 +6,7 @@ $pkg_upstream_url="https://github.com/aerokube/selenoid"
 $pkg_description="selenoid chrome node"
 $pkg_maintainer="QAGO Maintainers"
 $pkg_source="_no_pkg_source_"
-$pkg_deps=@("qago/chromedriver")
+$pkg_deps=@("qago/chromedriver", "core/powershell", "core/hab")
 $pkg_bin_dirs=@("bin")
 
 function Invoke-Download { }
@@ -20,7 +20,7 @@ function Invoke-Install {
     # Copy-Item "$(Get-HabPackagePath 'google-chrome')/bin" "$pkg_prefix" -Recurse -Force
     mkdir bin
     # Copy-Item "$(Get-HabPackagePath 'chromedriver')/bin" "$pkg_prefix" -Recurse -Force
-    cmd /c mklink bin\chromedriver.exe "$(Get-HabPackagePath 'chromedriver')\bin\chromedriver.exe"
+    cmd /c mklink /H bin\chromedriver.exe "$(Get-HabPackagePath 'chromedriver')\bin\chromedriver.exe"
 }
 
 function Invoke-Verify { }
