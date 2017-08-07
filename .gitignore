@@ -1,2 +1,5 @@
 results
 RESULTS
+.kitchen
+.kitchen.yml
+.kitchen.local.yml

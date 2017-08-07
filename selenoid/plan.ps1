@@ -8,7 +8,7 @@ $pkg_maintainer="QAGO Maintainers"
 $pkg_source="https://github.com/guskovd/selenoid/releases/download/$pkg_version/selenoid.exe"
 $pkg_shasum="c887aa66a8272f8f67ed08d35a14cea27476ba1faa796010debc8dc18582f85f"
 $pkg_filename="selenoid.exe"
-$pkg_deps=@("core/hab")
+$pkg_deps=@("core/hab/0.25.1", "core/powershell")
 $pkg_bin_dirs=@("bin")
 
 function Invoke-Unpack {

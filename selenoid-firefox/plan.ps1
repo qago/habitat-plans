@@ -6,7 +6,7 @@ $pkg_upstream_url="https://github.com/aerokube/selenoid"
 $pkg_description="selenoid firefox node"
 $pkg_maintainer="QAGO Maintainers"
 $pkg_source="_no_pkg_source_"
-$pkg_deps=@("qago/firefox","qago/geckodriver")
+$pkg_deps=@("qago/firefox", "qago/geckodriver", "core/powershell")
 
 function Invoke-Download { }
 
