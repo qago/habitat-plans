@@ -1,14 +1,14 @@
 $pkg_name="selenoid"
 $pkg_origin="qago"
-$pkg_version="1.2.1b"
+$pkg_version="1.4.0"
 $pkg_license=@("LGPL")
 $pkg_upstream_url="https://github.com/aerokube/selenoid"
 $pkg_description="selenoid"
 $pkg_maintainer="QAGO Maintainers"
-$pkg_source="https://github.com/guskovd/selenoid/releases/download/$pkg_version/selenoid.exe"
+$pkg_source="https://github.com/aerokube/selenoid/releases/download/$pkg_version/selenoid_windows_amd64.exe"
 $pkg_shasum="c887aa66a8272f8f67ed08d35a14cea27476ba1faa796010debc8dc18582f85f"
 $pkg_filename="selenoid.exe"
-$pkg_deps=@("core/hab/0.25.1", "core/powershell")
+$pkg_deps=@("core/hab/0.29.1", "core/powershell")
 $pkg_bin_dirs=@("bin")
 
 function Invoke-Unpack {
