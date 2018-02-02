@@ -20,8 +20,10 @@ function Invoke-Install {
     Copy-Item bin "$pkg_prefix" -Recurse -Force
     Copy-Item etc "$pkg_prefix" -Recurse -Force
     Copy-Item usr "$pkg_prefix" -Recurse -Force
+    Copy-Item tmp "$pkg_prefix" -Recurse -Force
+    Copy-Item var "$pkg_prefix" -Recurse -Force
 }
 
 function Invoke-End {
-    Start-Process "$HAB_CACHE_SRC_PATH/$pkg_filename" "/S" -NoNewWindow -Wait
+    Start-Process "$HAB_CACHE_SRC_PATH/$pkg_dirname/uninstall.exe" "/S" -NoNewWindow -Wait
 }
