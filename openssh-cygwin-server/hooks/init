@@ -1,0 +1,18 @@
+mkdir.exe -p /home/Administrator # cygwin's mkdir
+
+If (-Not (Test-Path "{{pkg.svc_config_path}}/ssh_host_dsa_key")) {
+    cmd /c 'ssh-keygen -t dsa -f {{pkg.svc_config_path}}/ssh_host_dsa_key -N ""'
+    chmod 0400 /cygdrive/c/hab/svc/openssh-cygwin-server/config/ssh_host_dsa_key
+}
+If (-Not (Test-Path "{{pkg.svc_config_path}}/ssh_host_rsa_key")) {
+    cmd /c 'ssh-keygen -t rsa -f {{pkg.svc_config_path}}/ssh_host_rsa_key -N ""'
+    chmod 0400 /cygdrive/c/hab/svc/openssh-cygwin-server/config/ssh_host_rsa_key
+}
+If (-Not (Test-Path "{{pkg.svc_config_path}}/ssh_host_ed25519_key")) {
+    cmd /c 'ssh-keygen -t ed25519 -f {{pkg.svc_config_path}}/ssh_host_ed25519_key -N ""'
+    chmod 0400 /cygdrive/c/hab/svc/openssh-cygwin-server/config/ssh_host_ed25519_key
+}
+If (-Not (Test-Path "{{pkg.svc_config_path}}/ssh_host_ecdsa_key")) {
+    cmd /c 'ssh-keygen -t ecdsa -f {{pkg.svc_config_path}}/ssh_host_ecdsa_key -N ""'
+    chmod 0400 /cygdrive/c/hab/svc/openssh-cygwin-server/config/ssh_host_ecdsa_key
+}
