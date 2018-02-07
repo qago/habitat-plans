@@ -5,8 +5,8 @@ pkg_description="Hab shell"
 pkg_maintainer='QAGO Maintainers'
 pkg_license=('LGPL-2.1')
 pkg_upstream_url="https://github.com/qago/habitat-plans"
-pkg_source=_no_pkg_source
-pkg_shasum="3d569869d27b48860210c758c4f313082103a5e58219a7669b52bfd29d674780"
+pkg_source=_no_pkg_source_
+pkg_shasum=_no_pkg_shasum_
 pkg_deps=(
     core/hab
     core/bash
