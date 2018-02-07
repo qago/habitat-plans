@@ -11,15 +11,11 @@ $pkg_filename="gpg4win-$pkg_version.exe"
 $pkg_bin_dirs=@("GnuPG\bin", "gpg4win-3.0.3\bin")
 
 function Invoke-Unpack {
-    echo pkg_dirname:
-    echo $HAB_CACHE_SRC_PATH/$pkg_dirname
     mkdir "$HAB_CACHE_SRC_PATH/$pkg_dirname"
     Start-Process "$HAB_CACHE_SRC_PATH/$pkg_filename" "/S /D=$HAB_CACHE_SRC_PATH\$pkg_dirname" -NoNewWindow -Wait
 }
 
 function Invoke-Install {
-    echo pkg_prefix:
-    echo $pkg_prefix
     Copy-Item . "$pkg_prefix" -Recurse -Force
     Copy-Item ../GnuPG "$pkg_prefix" -Recurse -Force
 }

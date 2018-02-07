@@ -1,4 +1,7 @@
-mkdir.exe -p /home/Administrator # cygwin's mkdir
+$openssh_cygwin_path=$(Resolve-Path "{{pkgPathFor "qago/openssh-cygwin"}}").Path
+If (-Not (Test-Path -Path "$openssh_cygwin_path\home\Administrator")) {
+   cmd /c mklink /J $openssh_cygwin_path\home\Administrator C:\Users\Administrator
+}
 
 If (-Not (Test-Path "{{pkg.svc_config_path}}/ssh_host_dsa_key")) {
     cmd /c 'ssh-keygen -t dsa -f {{pkg.svc_config_path}}/ssh_host_dsa_key -N ""'
