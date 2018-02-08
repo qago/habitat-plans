@@ -3,7 +3,12 @@
 
 set -e
 
-. ./plan.sh
+if [ "$#" -ne 1 ]; then
+    echo "usage: hab-shell.sh <path>"
+    exit 1
+fi
+
+. $1/plan.sh
 
 pkg_path=""
 pkg_lib=""

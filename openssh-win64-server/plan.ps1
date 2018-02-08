@@ -9,3 +9,6 @@ $pkg_deps=@("qago/openssh-win64")
 
 function Invoke-Download { }
 function Invoke-Verify { }
+function Invoke-Install {
+    echo hello
+}
