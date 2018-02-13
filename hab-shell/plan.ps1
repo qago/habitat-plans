@@ -5,7 +5,7 @@ $pkg_description="hab-shell"
 $pkg_maintainer="QAGO Maintainers"
 $pkg_source="_no_pkg_source_"
 $pkg_version="1.0"
-$pkg_deps=@("core/powershell")
+$pkg_deps=@("core/powershell", "core/hab")
 $pkg_bin_dirs=@("bin")
 
 function Invoke-Download { }

@@ -2,17 +2,7 @@ param (
     [string]$path = $null
 )
 
-if (-Not $path) {
-    write "usage: hab-shell.ps1 <path>"
-    exit 1
-}
-
-if (-Not $(Test-Path("$path/plan.ps1"))) {
-    write "Invalid path: $path"
-    exit 1
-}
-
-. $path/plan.ps1
+. ./plan.ps1
 
 $envLib = @{LIB=@(); PATH=@(); INCLUDE=@()}
 
@@ -24,7 +14,7 @@ Foreach ($pkg in $pkg_deps) {
 	# echo $env_var
 	$env_var_entry = $(hab pkg env $pkg | Select-String "$env_var=")
 	If ($env_var_entry) {
-	    $env_value = $(Resolve-Path $env_var_entry.Line.split("=")[1].Replace('"', '')).Path
+	    $env_value = $env_var_entry.Line.split("=")[1].Replace('"', '')
 	    $envLib[$env_var] += $env_value
 	}
     }

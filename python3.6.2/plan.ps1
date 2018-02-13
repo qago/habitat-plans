@@ -1,13 +1,13 @@
 $pkg_name="python"
 $pkg_origin="qago"
-$pkg_version="3.6.4"
+$pkg_version="3.6.2"
 $pkg_license=@("LGPL")
 $pkg_upstream_url="https://www.python.org/downloads/windows/"
 $pkg_description="python"
 $pkg_maintainer="QAGO Maintainers"
-$pkg_source="https://www.python.org/ftp/python/3.6.4/python-3.6.4-embed-amd64.zip"
-$pkg_shasum="f6ca955d6885a2ac01595dc7857c5c06ee0a5b1f7b3774f89ec52692c7cb691c"
-$pkg_filename="python-3.6.4-embed-amd64.zip"
+$pkg_source="https://www.python.org/ftp/python/3.6.2/python-3.6.2-embed-amd64.zip"
+$pkg_shasum="a59c12dbf953d3cdedc678a4f9195e87e717f10c8b0a42ed3fb7092bef523528"
+$pkg_filename="python-3.6.2-embed-amd64.zip"
 $pkg_bin_dirs=@("bin")
 
 function Invoke-Unpack {
