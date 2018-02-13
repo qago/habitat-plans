@@ -3,12 +3,30 @@
 
 set -e
 
-if [ "$#" -ne 1 ]; then
-    echo "usage: hab-shell.sh <path>"
-    exit 1
-fi
+HAB_SHELL_PLAN=$PWD/plan.sh
 
-. $1/plan.sh
+while (( "$#" )); do
+  case "$1" in
+    -c|--command)
+      HAB_SHELL_COMMAND="$2"
+      shift 2
+      ;;
+    -p|--plan)
+      HAB_SHELL_PLAN="$2"
+      shift 2
+      ;;
+    --) # end argument parsing
+      shift
+      break
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+  esac
+done
+
+. $(realpath $HAB_SHELL_PLAN)
 
 pkg_path=""
 pkg_lib=""
@@ -26,10 +44,22 @@ do
     pkg_include="$pkg_path:$cur_include"
 done
 
-unset PROMPT_COMMAND
-
 export PATH=$pkg_path
 export LIB=$pkg_lib
 export INCLUDE=$pkg_include
 
 do_shell
+if [[ ! -z "$HAB_SHELL_COMMAND" ]]; then
+    do_shell_command() {
+    	$HAB_SHELL_COMMAND
+    }
+fi
+
+if typeset -f do_shell_command > /dev/null
+then
+    do_shell_command
+else
+    if typeset -f do_shell_login > /dev/null; then
+	do_shell_login
+    fi
+fi
