@@ -10,6 +10,7 @@ $pkg_bin_dirs=@("bin")
 
 function Invoke-Download { }
 function Invoke-Verify { }
+function Invoke-Unpack { }
 
 function Invoke-Install {
     cp $PLAN_CONTEXT/bin/hab-shell.ps1 $pkg_prefix/bin -Recurse -Force

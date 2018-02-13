@@ -1,8 +1,18 @@
-param (
-    [string]$path = $null
+Param (
+    [alias("c")][string]$command = $null,
+    [alias("p")][string]$plan = $null
 )
 
-. ./plan.ps1
+if (-Not $plan) {
+    $plan = "$PWD/plan.ps1"
+}
+
+if (-Not $(Test-Path("$plan"))) {
+    write "Invalid path: $plan"
+    exit 1
+}
+
+. $plan
 
 $envLib = @{LIB=@(); PATH=@(); INCLUDE=@()}
 
@@ -25,3 +35,18 @@ $env:LIB = [String]::Join(";", $envLib['LIB'])
 $env:INCLUDE = [String]::Join(";", $envLib['INCLUDE'])
 
 Invoke-Shell
+
+if ($command) {
+    function Invoke-ShellCommand {
+	& $command
+    }
+}
+
+if (Get-Command "Invoke-ShellCommand" -errorAction SilentlyContinue) {
+    Invoke-ShellCommand
+}
+else {
+    if (Get-Command "Invoke-ShellLogin" -errorAction SilentlyContinue) {
+	Invoke-ShellLogin
+    }
+}
