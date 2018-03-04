@@ -1,0 +1,6 @@
+sudo chown -R hab:hab {{pkg.svc_path}}
+mkdir -p {{pkg.svc_path}}/var/run/jenkins
+mkdir -p {{pkg.svc_path}}/var/cache/jenkins
+mkdir -p {{pkg.svc_path}}/var/log/jenkins
+mkdir -p {{pkg.svc_path}}/etc/default
+cp {{pkg.svc_config_path}}/jenkins {{pkg.svc_path}}/etc/default/jenkins
