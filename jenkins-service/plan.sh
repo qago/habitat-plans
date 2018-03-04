@@ -1,6 +1,6 @@
 pkg_name=jenkins-service
 pkg_origin=qago
-pkg_version='1.0.5'
+pkg_version='1.0.6'
 pkg_description="Jenkins service"
 pkg_maintainer='QAGO Maintainers'
 pkg_license=('LGPL-2.1')
@@ -18,7 +18,7 @@ pkg_deps=(
 )
 
 pkg_exports=(
-  [port]=jenkins.http.port
+  [port]=jenkins-service.port
 )
 pkg_exposes=(port)
 pkg_svc_user="hab"
