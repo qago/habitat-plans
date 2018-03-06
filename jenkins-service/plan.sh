@@ -7,6 +7,93 @@ pkg_license=('LGPL-2.1')
 pkg_upstream_url=""
 pkg_source=_no_pkg_source_
 pkg_shasum=_no_pkg_shasum_
+
+# Jenkins.instance.pluginManager.plugins.each{ plugin -> println("    qago/jenkins-${plugin.getShortName()}/${plugin.getVersion()}") }
+jenkins_plugins=(
+    qago/jenkins-pipeline-graph-analysis/1.3
+    qago/jenkins-built-on-column/1.1
+    qago/jenkins-pam-auth/1.1
+    qago/jenkins-extended-choice-parameter/0.76
+    qago/jenkins-conditional-buildstep/1.3.5
+    qago/jenkins-pipeline-stage-view/2.6
+    qago/jenkins-momentjs/1.1.1
+    qago/jenkins-subversion/2.9
+    qago/jenkins-htmlpublisher/1.12
+    qago/jenkins-filesystem_scm/1.20
+    qago/jenkins-ace-editor/1.1
+    qago/jenkins-scm-api/2.1.1
+    qago/jenkins-workflow-aggregator/2.5
+    qago/jenkins-token-macro/2.0
+    qago/jenkins-rebuild/1.25
+    qago/jenkins-workflow-cps/2.29
+    qago/jenkins-javadoc/1.4
+    qago/jenkins-ant/1.2
+    qago/jenkins-git-server/1.7
+    qago/jenkins-git/3.2.0
+    qago/jenkins-pipeline-model-api/1.1.1
+    qago/jenkins-authentication-tokens/1.3
+    qago/jenkins-maven-plugin/2.15.1
+    qago/jenkins-workflow-step-api/2.9
+    qago/jenkins-validating-string-parameter/2.3
+    qago/jenkins-git-client/2.4.1
+    qago/jenkins-matrix-auth/1.1
+    qago/jenkins-branch-api/2.0.8
+    qago/jenkins-pipeline-input-step/2.5
+    qago/jenkins-bouncycastle-api/2.16.0
+    qago/jenkins-translation/1.10
+    qago/jenkins-pipeline-stage-tags-metadata/1.1.1
+    qago/jenkins-hidden-parameter/0.0.4
+    qago/jenkins-script-security/1.27
+    qago/jenkins-junit/1.20
+    qago/jenkins-workflow-scm-step/2.4
+    qago/jenkins-email-ext/2.57.1
+    qago/jenkins-workflow-multibranch/2.14
+    qago/jenkins-mapdb-api/1.0.9.0
+    qago/jenkins-ssh-credentials/1.13
+    qago/jenkins-workflow-support/2.14
+    qago/jenkins-windows-slaves/1.0
+    qago/jenkins-workflow-job/2.10
+    qago/jenkins-credentials/2.1.13
+    qago/jenkins-pipeline-stage-step/2.2
+    qago/jenkins-matrix-project/1.9
+    qago/jenkins-ssh-slaves/1.9
+    qago/jenkins-plain-credentials/1.4
+    qago/jenkins-durable-task/1.13
+    qago/jenkins-jquery/1.11.2-0
+    qago/jenkins-mailer/1.20
+    qago/jenkins-pipeline-milestone-step/1.3.1
+    qago/jenkins-docker-commons/1.6
+    qago/jenkins-credentials-binding/1.11
+    qago/jenkins-run-condition/1.0
+    qago/jenkins-pipeline-model-definition/1.1.1
+    qago/jenkins-ruby-runtime/0.12
+    qago/jenkins-pipeline-model-extensions/1.1.1
+    qago/jenkins-workflow-durable-task-step/2.10
+    qago/jenkins-multiple-scms/0.6
+    qago/jenkins-jenkins-multijob-plugin/1.24
+    qago/jenkins-allure-jenkins-plugin/2.22
+    qago/jenkins-envinject/1.93.1
+    qago/jenkins-cvs/2.11
+    qago/jenkins-graphiteIntegrator/1.2
+    qago/jenkins-workflow-basic-steps/2.4
+    qago/jenkins-display-url-api/1.1.1
+    qago/jenkins-antisamy-markup-formatter/1.1
+    qago/jenkins-build-timeout/1.18
+    qago/jenkins-workflow-api/2.12
+    qago/jenkins-external-monitor-job/1.4
+    qago/jenkins-workflow-cps-global-lib/2.7
+    qago/jenkins-structs/1.6
+    qago/jenkins-cloudbees-folder/6.0.3
+    qago/jenkins-handlebars/1.1.1
+    qago/jenkins-icon-shim/2.0.3
+    qago/jenkins-pipeline-build-step/2.4
+    qago/jenkins-pipeline-rest-api/2.6
+    qago/jenkins-docker-workflow/1.10
+    qago/jenkins-jquery-detached/1.2.1
+    qago/jenkins-parameterized-trigger/2.33
+    qago/jenkins-ldap/1.11
+)
+
 pkg_deps=(
     core/jenkins/2.89.4/20180221042204
     core/wget
@@ -16,6 +103,7 @@ pkg_deps=(
     core/sed
     core/unzip
 )
+pkg_deps=("${pkg_deps[@]}" "${jenkins_plugins[@]}")
 
 pkg_exports=(
   [port]=jenkins-service.port
@@ -53,8 +141,13 @@ _install_dependency() {
 }
 
 do_install() {
-    mkdir -p $pkg_prefix/scripts
-    cp $PLAN_CONTEXT/install_jenkins_plugin.sh $pkg_prefix/scripts
+    mkdir -p $pkg_prefix/plugins
+    for plg in "${jenkins_plugins[@]}"
+    do
+	for hpi in $(hab pkg path $plg)/plugins/*.hpi; do
+	    ln -sf $hpi $pkg_prefix/plugins/
+	done	
+    done
 }
 
 
