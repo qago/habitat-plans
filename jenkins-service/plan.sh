@@ -1,6 +1,6 @@
 pkg_name=jenkins-service
 pkg_origin=qago
-pkg_version='1.0.13'
+pkg_version='1.0.21'
 pkg_description="Jenkins service"
 pkg_maintainer='QAGO Maintainers'
 pkg_license=('LGPL-2.1')
