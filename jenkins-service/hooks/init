@@ -5,3 +5,5 @@ mkdir -p {{pkg.svc_path}}/var/log/jenkins
 mkdir -p {{pkg.svc_path}}/etc/default
 cp {{pkg.svc_config_path}}/jenkins {{pkg.svc_path}}/etc/default/jenkins
 cp -r {{pkg.path}}/plugins {{pkg.svc_data_path}}
+mkdir -p {{pkg.svc_data_path}}/jobs/jenkins-jobs
+cp -r {{pkg.svc_config_path}}/jenkins-jobs.xml {{pkg.svc_data_path}}/jobs/jenkins-jobs/config.xml

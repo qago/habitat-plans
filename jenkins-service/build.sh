@@ -5,7 +5,7 @@
 
 for plg in "${jenkins_plugins[@]}"
 do
-    hab pkg path $plg || ./build_plugin.rb $plg
+    hab pkg path $plg || ruby ./build_plugin.rb "$plg"
 done
 
 hab studio build -R .

@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
+require 'fileutils'
 require 'erb'
 
 def build(plg)
