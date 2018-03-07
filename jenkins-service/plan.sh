@@ -135,7 +135,6 @@ do_prepare() {
 
 _install_dependency() {
     local dep="${1}"
-    $HAB_BIN pkg path "$dep"
     if [[ -z "${NO_INSTALL_DEPS:-}" ]]; then
 	$HAB_BIN pkg path "$dep" || $HAB_BIN install -u $HAB_BLDR_URL --channel $HAB_BLDR_CHANNEL "$dep" || {
 		if [[ "$HAB_BLDR_CHANNEL" != "$FALLBACK_CHANNEL" ]]; then

@@ -12,6 +12,7 @@ def build(plg)
   FileUtils.mkdir_p plg_dir
   File.write("#{plg_dir}/plan.sh", ERB.new(File.read('./plugin_plan.sh.erb')).result( binding ))
   system <<-EOH
+    cd plugins
     hab pkg build -R #{plg_dir}
     . ./results/last_build.env
     sudo hab pkg install ./results/$pkg_artifact
