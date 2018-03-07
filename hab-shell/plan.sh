@@ -14,6 +14,7 @@ pkg_deps=(
     core/gawk
     core/grep
     core/sed
+    core/sudo
 )
 pkg_bin_dirs=(bin)
 
