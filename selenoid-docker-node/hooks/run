@@ -1,0 +1,5 @@
+#!/bin/sh
+
+exec 2>&1
+
+exec selenoid -conf {{pkg.svc_config_path}}/browsers.json -video-output-dir {{pkg.svc_data_path}}

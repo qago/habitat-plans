@@ -1,0 +1,4 @@
+[chrome]
+versions=['65.0']
+[firefox]
+versions=['58.0']

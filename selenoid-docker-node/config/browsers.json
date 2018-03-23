@@ -1,0 +1,32 @@
+{
+    "chrome": {
+        "default": "{{cfg.chrome.versions[0]}}",
+        "versions": {
+            {{#each cfg.chrome.versions as |version| ~}}
+            "{{version}}": {
+                "image": "selenoid/vnc:chrome_{{version}}",
+                "port": "4444",
+                "path": "/",
+                "tmpfs": {
+                    "/tmp": "size=128m"
+                }
+            }{{#if @last ~}}{{else ~}},{{/if ~}}
+            {{/each ~}}
+        }
+    },
+    "firefox": {
+        "default": "{{cfg.firefox.versions[0]}}",
+        "versions": {
+            {{#each cfg.firefox.versions as |version| ~}}
+            "{{version}}": {
+                "image": "selenoid/vnc:firefox_{{version}}",
+                "port": "4444",
+                "path": "/wd/hub",
+                "tmpfs": {
+                    "/tmp": "size=128m"
+                }
+            }{{#if @last ~}}{{else ~}},{{/if ~}}
+            {{/each ~}}
+        }
+    }					 
+}
