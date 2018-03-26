@@ -10,6 +10,10 @@ pkg_shasum=_no_pkg_shasum_
 
 pkg_deps=(qago/ggr core/httpd)
 
+pkg_binds=(
+  [selenoid-node]="settings"
+)
+
 do_download() {
     return 0
 }

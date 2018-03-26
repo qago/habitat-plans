@@ -1,8 +1,8 @@
 {
     "chrome": {
-        "default": "{{cfg.chrome.versions[0]}}",
+        "default": "{{cfg.settings.browsers.chrome.versions[0]}}",
         "versions": {
-            {{#each cfg.chrome.versions as |version| ~}}
+            {{#each cfg.settings.browsers.chrome.versions as |version| ~}}
             "{{version}}": {
                 "image": "selenoid/vnc:chrome_{{version}}",
                 "port": "4444",
@@ -15,9 +15,9 @@
         }
     },
     "firefox": {
-        "default": "{{cfg.firefox.versions[0]}}",
+        "default": "{{cfg.settings.browsers.firefox.versions[0]}}",
         "versions": {
-            {{#each cfg.firefox.versions as |version| ~}}
+            {{#each cfg.settings.browsers.firefox.versions as |version| ~}}
             "{{version}}": {
                 "image": "selenoid/vnc:firefox_{{version}}",
                 "port": "4444",

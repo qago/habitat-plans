@@ -1,9 +1,9 @@
-{{ #each cfg.chrome.versions as |version| ~}}
+{{ #each cfg.settings.chrome.versions as |version| ~}}
 echo pull selenoid/vnc:chrome_{{version}} ...
 docker pull selenoid/vnc:chrome_{{version}}
 {{/each ~}}
 
-{{#each cfg.firefox.versions as |version| ~}}
+{{#each cfg.settings.firefox.versions as |version| ~}}
 echo pull selenoid/vnc:firefox_{{version}} ...
 docker pull selenoid/vnc:firefox_{{version}}
 {{/each ~}}

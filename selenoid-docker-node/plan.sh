@@ -1,4 +1,4 @@
-pkg_name=selenoid-docker-node
+pkg_name=selenoid-node
 pkg_origin=qago
 pkg_version='1.0.44'
 pkg_description="Selenoid Docker Node service"
@@ -10,6 +10,10 @@ pkg_shasum=_no_pkg_shasum_
 
 pkg_deps=(qago/selenoid qago/selenoid-cm)
 pkg_svc_user="root"
+
+pkg_exports=(
+    [settings]=settings
+)
 
 do_download() {
     return 0
