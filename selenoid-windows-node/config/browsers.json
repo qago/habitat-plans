@@ -1,0 +1,21 @@
+{
+    {{#each cfg.settings.browsers as |browser browser_settings| ~}}
+    {{#if browser_settings.windows.enabled ~}}
+    {{#unless @first}},{{/unless}}"{{ browser }}": {
+        "default": "{{browser_settings.windows.versions[0]}}",
+        "versions": {
+            {{#each browser_settings.windows.versions as |version| ~}}
+            {{#unless @first}},{{/unless}}"{{version}}": {
+                "image": "{{../../pkg.svc_config_path}}\start_{{browser}}.ps1 -version {{version}}",
+                "port": "{{ ../../cfg.settings.port }}",
+                "path": "{{ browser_settings.path }}",
+                "tmpfs": {
+                    "/tmp": "size=128m"
+                }
+            }
+            {{/each ~}}
+        }
+    }
+    {{/if ~}}
+    {{/each ~}}
+}
