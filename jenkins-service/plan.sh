@@ -100,14 +100,13 @@ jenkins_plugins=(
 )
 
 pkg_deps=(
-    core/hab
     core/jenkins/2.89.4/20180221042204
-    core/wget
-    core/netcat
-    core/bash
-    core/grep
-    core/sed
-    core/unzip
+    core/wget/1.19.1/20171024102323
+    core/netcat/0.7.1/20170514150813
+    core/bash/4.3.42/20170513213519
+    core/grep/2.22/20170513213444
+    core/sed/4.2.2/20170513213123
+    core/unzip/6.0/20170513215357
 )
 pkg_deps=("${pkg_deps[@]}" "${jenkins_plugins[@]}")
 

@@ -1,13 +1,15 @@
 <qa:browsers xmlns:qa="urn:config.gridrouter.qatools.ru"> -->
 {{~#eachAlive bind.selenoid-node.members as |member|}}
-{{~#each member.cfg.settings.browsers as |browser_name browser_settings|}}
-<browser name="{{ browser_name }}" defaultVersion="{{ browser_settings.versions[0] }}">
+{{~#each member.cfg.settings.browsers.platforms as |platform_name platform_settings|}}
+{{~#each platform_settings.browsers as |browser_name browser_settings|}}
+<browser name="{{ browser_settings.name }}" defaultVersion="{{ browser_settings.versions[0] }}">
 {{~#each browser_settings.versions as |version| }}
 <version number="{{ version }}">
 <region name="1">
 <host name="{{ member.sys.ip }}" port="{{ member.cfg.settings.port }}" count="{{member.cfg.settings.max_sessions}}"/>
 </region>
 </version>
+{{~/each}}
 {{~/each}}
 </browser>
 {{~/each}}
