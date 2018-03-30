@@ -18,5 +18,3 @@ function Invoke-Unpack {
 function Invoke-Install {
     Copy-Item * "$pkg_prefix" -Recurse -Force
 }
-
-function Invoke-Verify { }

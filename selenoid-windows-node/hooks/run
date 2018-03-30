@@ -1,1 +1,0 @@
-selenoid -conf {{pkg.svc_config_path}}/browsers.json -video-output-dir {{pkg.svc_data_path}}

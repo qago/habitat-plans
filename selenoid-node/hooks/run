@@ -1,0 +1,6 @@
+{{#if cfg.platform.linux }}
+exec selenoid -conf {{pkg.svc_config_path}}/browsers.json -video-output-dir {{pkg.svc_data_path}}
+{{/if}}
+{{#if cfg.platform.windows }}
+selenoid -conf {{pkg.svc_config_path}}/browsers.json -video-output-dir {{pkg.svc_data_path}}
+{{/if}}

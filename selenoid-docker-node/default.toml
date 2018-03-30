@@ -1,9 +1,0 @@
-[settings]
-port=4444
-platform='docker'
-max_sessions=10
-
-[settings.browsers.chrome]
-versions=['65.0']
-[settings.browsers.firefox]
-versions=['58.0']
