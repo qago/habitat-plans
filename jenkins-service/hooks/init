@@ -4,6 +4,22 @@ mkdir -p {{pkg.svc_path}}/var/cache/jenkins
 mkdir -p {{pkg.svc_path}}/var/log/jenkins
 mkdir -p {{pkg.svc_path}}/etc/default
 cp {{pkg.svc_config_path}}/jenkins {{pkg.svc_path}}/etc/default/jenkins
-cp -r {{pkg.path}}/plugins {{pkg.svc_data_path}}
 mkdir -p {{pkg.svc_data_path}}/jobs/jenkins-jobs
 cp -r {{pkg.svc_config_path}}/jenkins-jobs.xml {{pkg.svc_data_path}}/jobs/jenkins-jobs/config.xml
+
+plugin_repo_url="http://updates.jenkins-ci.org/download/plugins"
+plugin_dir="{{pkg.svc_data_path}}/plugins"
+
+download_plugin() {
+    url="${plugin_repo_url}/${1}/${2}/${1}.hpi"
+    echo "Downloading: $1@$2"
+    if [ ! -f "${plugin_dir}/${1}.hpi" ]; then
+	curl -L --silent --output "${plugin_dir}/${1}.hpi" "$url"
+    fi
+}
+
+mkdir -p ${plugin_dir}
+
+{{#each cfg.jenkins-service.plugins as |plugin|~}}
+download_plugin {{plugin.name}} {{plugin.version}}
+{{/each}}
