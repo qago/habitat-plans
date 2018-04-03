@@ -38,9 +38,19 @@ function rebuild() {
     done
     . $DIR/plan.sh
     hab sup unload $pkg_origin/$pkg_name
-    hab config apply -p $PEER "$APP.$ENV#$pkg_name.$GROUP" $(date +%s) $DIR/env/$APP.$ENV.toml
+    if [[ -v "APP" ]]; then
+	hab config apply -p $PEER "$APP.$ENV#$pkg_name.$GROUP" $(date +%s) $DIR/env/$APP.$ENV.toml
+    fi
     hab studio build -R $DIR
     . ./results/last_build.env
     hab pkg install ./results/$pkg_artifact
-    hab sup load $pkg_ident -a $APP -e $ENV --group $GROUP
+}
+
+function rr() {
+    rebuild $*
+    if [[ -v "APP" ]]; then
+	hab sup load $pkg_ident -a $APP -e $ENV --group $GROUP
+    else
+	hab sup load $pkg_ident --group $GROUP
+    fi
 }

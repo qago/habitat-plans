@@ -1,0 +1,18 @@
+[platform]
+windows=true
+
+[settings.browsers.chrome]
+name = 'chrome'
+path='/'
+
+[settings.browsers.firefox]
+name = 'firefox'
+path='wd/hab'
+
+[[settings.browsers.chrome.windows.versions]]
+browser = '65.0.3325.181'
+driver = '2.37'
+
+[[settings.browsers.firefox.windows.versions]]
+browser = '59.0'
+driver = '0.20.0'

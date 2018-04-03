@@ -10,8 +10,13 @@ pkg_shasum=_no_pkg_shasum_
 
 pkg_deps=(qago/ggr core/httpd)
 
-pkg_binds=(
-  [selenoid-node]="settings"
+pkg_binds_optional=(
+  [selenoid-windows-node]="settings"
+  [selenoid-docker-node]="settings"
+  [selenoid-ie8-node]="settings"
+  [selenoid-ie9-node]="settings"
+  [selenoid-ie10-node]="settings"
+  [selenoid-ie11-node]="settings"
 )
 
 do_download() {
