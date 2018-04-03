@@ -1,6 +1,6 @@
 pkg_name=hab-shell
 pkg_origin=qago
-pkg_version='0.51.0'
+pkg_version='1.0'
 pkg_description="Hab shell"
 pkg_maintainer='QAGO Maintainers'
 pkg_license=('LGPL-2.1')
