@@ -10,9 +10,9 @@ name = 'firefox'
 path='wd/hab'
 
 [[settings.browsers.chrome.windows.versions]]
-browser = '65.0.3325.181'
+browser = 'w65.0.3325.181'
 driver = '2.37'
 
 [[settings.browsers.firefox.windows.versions]]
-browser = '59.0'
+browser = 'w59.0.2'
 driver = '0.20.0'

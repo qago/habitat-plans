@@ -4,6 +4,7 @@ param (
     [string]$port = $null
 )
 
+$browser = $browser -replace 'w',''
 $geckodriver_pkg = "qago/geckodriver/$driver"
 
 $pkg_deps=@(

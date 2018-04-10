@@ -2,4 +2,9 @@ mkdir -p {{pkg.svc_data_path}}/cli
 until nc -z localhost {{ cfg.jenkins-service.port }}; do sleep 1; done
 until wget -q http://127.0.0.1:{{ cfg.jenkins-service.port }}/whoAmI/ -O /dev/null; do sleep 1; done
 curl http://127.0.0.1:{{ cfg.jenkins-service.port }}/jnlpJars/jenkins-cli.jar -o {{pkg.svc_data_path}}/cli/jenkins-cli.jar
+
+# from https://issues.jenkins-ci.org/browse/JENKINS-41765
+cat {{pkg.svc_config_path}}/executors.groovy | java -jar {{pkg.svc_data_path}}/cli/jenkins-cli.jar -s http://127.0.0.1:{{ cfg.jenkins-service.port }} groovy =
 java -jar {{pkg.svc_data_path}}/cli/jenkins-cli.jar -s http://127.0.0.1:{{ cfg.jenkins-service.port }} build 'jenkins-jobs'
+
+
