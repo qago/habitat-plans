@@ -36,4 +36,4 @@ $env:INCLUDE = [String]::Join(";", $envLib['INCLUDE'])
 
 $env:HEADLESS_DRIVER="$geckodriver_path\bin\geckodriver.exe"
 
-geckodriver.exe -$args
+geckodriver.exe $args
