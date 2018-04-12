@@ -15,4 +15,4 @@ driver = '2.37'
 
 [[settings.browsers.firefox.windows.versions]]
 browser = '59.0.2'
-driver = '0.20.0'
+driver = '0.20.1'

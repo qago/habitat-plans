@@ -1,6 +1,6 @@
 param (
     [string]$driver = $null,
-    [string]$browser = $null,
+    [string]$browser = $null
 )
 
 $browser = $browser -replace 'w',''
