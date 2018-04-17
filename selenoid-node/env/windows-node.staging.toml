@@ -22,13 +22,13 @@ browser = 'w63.0.3239.132'
 driver = '2.37'
 
 [[settings.browsers.firefox.windows.versions]]
-browser = '59.0.2'
+browser = 'w59.0.2'
 driver = '0.20.0'
 
 [[settings.browsers.firefox.windows.versions]]
-browser = '58.0.2'
+browser = 'w58.0.2'
 driver = '0.20.0'
 
 [[settings.browsers.firefox.windows.versions]]
-browser = '57.0.4'
+browser = 'w57.0.4'
 driver = '0.20.0'
