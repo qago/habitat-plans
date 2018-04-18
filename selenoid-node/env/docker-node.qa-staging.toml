@@ -1,0 +1,28 @@
+[platform]
+linux=true
+
+[settings.browsers.chrome]
+name = 'chrome'
+path='/'
+
+[settings.browsers.firefox]
+name = 'firefox'
+path='wd/hab'
+
+[[settings.browsers.chrome.docker.versions]]
+browser='65.0'
+
+[[settings.browsers.chrome.docker.versions]]
+browser='64.0'
+
+[[settings.browsers.chrome.docker.versions]]
+browser='63.0'
+
+[[settings.browsers.chrome.docker.versions]]
+browser='62.0'
+
+[[settings.browsers.firefox.docker.versions]]
+browser='58.0'
+
+[[settings.browsers.firefox.docker.versions]]
+browser='57.0'
