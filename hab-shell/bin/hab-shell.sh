@@ -58,6 +58,8 @@ export PATH=$pkg_path
 export LIB=$pkg_lib
 export INCLUDE=$pkg_include
 
+export HAB_SHELL_PLAN=$(realpath $HAB_SHELL_PLAN)
+
 do_shell
 if [[ ! -z "$HAB_SHELL_COMMAND" ]]; then
     do_shell_command() {
