@@ -35,9 +35,22 @@ do_prepare() {
 }
 
 do_install() {
-    # mkdir bin
     cp $PLAN_CONTEXT/bin/hab-shell.sh $pkg_prefix/bin/hab-shell
 }
+
+_install_dependency() {
+    local dep="${1}"
+    if [[ -z "${NO_INSTALL_DEPS:-}" ]]; then
+	$HAB_BIN pkg path "$dep" || $HAB_BIN install -u $HAB_BLDR_URL --channel $HAB_BLDR_CHANNEL "$dep" || {
+		if [[ "$HAB_BLDR_CHANNEL" != "$FALLBACK_CHANNEL" ]]; then
+		    build_line "Trying to install '$dep' from '$FALLBACK_CHANNEL'"
+		    $HAB_BIN install -u $HAB_BLDR_URL --channel "$FALLBACK_CHANNEL" "$dep" || true
+		fi
+	    }
+    fi
+    return 0
+}
+
 
 do_build() {
     return 0

@@ -3,27 +3,37 @@
 
 set -e
 
-HAB_SHELL_PLAN=$PWD/plan.sh
+upsearch () {
+    slashes=${PWD//[^\/]/}
+    directory="$PWD"
+    for (( n=${#slashes}; n>0; --n ))
+    do
+	test -e "$directory/$1" && echo "$directory/$1" && return 
+	directory="$directory/.."
+    done
+}
+
+HAB_SHELL_PLAN=$(upsearch plan.sh)
 
 while (( "$#" )); do
-  case "$1" in
-    -c|--command)
-      HAB_SHELL_COMMAND="$2"
-      shift 2
-      ;;
-    -p|--plan)
-      HAB_SHELL_PLAN="$2"
-      shift 2
-      ;;
-    --) # end argument parsing
-      shift
-      break
-      ;;
-    -*|--*=) # unsupported flags
-      echo "Error: Unsupported flag $1" >&2
-      exit 1
-      ;;
-  esac
+    case "$1" in
+	-c|--command)
+	    HAB_SHELL_COMMAND="$2"
+	    shift 2
+	    ;;
+	-p|--plan)
+	    HAB_SHELL_PLAN="$2"
+	    shift 2
+	    ;;
+	--) # end argument parsing
+	    shift
+	    break
+	    ;;
+	-*|--*=) # unsupported flags
+	echo "Error: Unsupported flag $1" >&2
+	exit 1
+	;;
+    esac
 done
 
 . $(realpath $HAB_SHELL_PLAN)
