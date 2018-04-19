@@ -3,8 +3,22 @@ Param (
     [alias("p")][string]$plan = $null
 )
 
+function UpSearch($f) {
+    if (Test-Path "$f") {
+	return "$PWD/$f"
+    }
+    else {
+	$parent=$PWD
+	cd ..
+	if ("$PWD" -eq "$parent") {
+	    return 1
+	}
+	UpSearch $f
+    }
+}
+
 if (-Not $plan) {
-    $plan = "$PWD/plan.ps1"
+    $plan = $(UpSearch "plan.ps1")
 }
 
 if (-Not $(Test-Path("$plan"))) {
