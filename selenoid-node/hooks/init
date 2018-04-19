@@ -20,7 +20,7 @@ if (-Not $(hab pkg env $headless_selenium_for_win_pkg)) {
 }
 
 {{ #each cfg.settings.browsers.chrome.windows.versions as |version| ~}}
-$chrome_pkg = "qago/google-chrome/{{version.browser}}"
+$chrome_pkg = "qago/google-chrome/$("{{version.browser}}"  -replace 'w','')"
 $chromedriver_pkg = "qago/chromedriver/{{version.driver}}"
 
 if (-Not $(hab pkg env $chrome_pkg)) {
@@ -32,7 +32,7 @@ if (-Not $(hab pkg env $chromedriver_pkg)) {
 {{/each }}
 
 {{ #each cfg.settings.browsers.firefox.windows.versions as |version| ~}}
-$firefox_pkg = "qago/firefox/{{version.browser}}"
+$firefox_pkg = "qago/firefox/$("{{version.browser}}" -replace 'w','')"
 $geckodriver_pkg = "qago/geckodriver/{{version.driver}}"
 
 if (-Not $(hab pkg env $firefox_pkg)) {

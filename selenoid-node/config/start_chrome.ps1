@@ -4,6 +4,7 @@ param (
     [string]$port = $null
 )
 
+$browser = $browser -replace 'w',''
 $chrome_pkg = "qago/google-chrome/$browser"
 $chromedriver_pkg = "qago/chromedriver/$driver"
 

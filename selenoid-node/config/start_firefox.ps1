@@ -1,9 +1,9 @@
 param (
     [string]$driver = $null,
-    [string]$browser = $null,
-    [string]$port = $null
+    [string]$browser = $null
 )
 
+$browser = $browser -replace 'w',''
 $geckodriver_pkg = "qago/geckodriver/$driver"
 
 $pkg_deps=@(
@@ -36,4 +36,4 @@ $env:INCLUDE = [String]::Join(";", $envLib['INCLUDE'])
 
 $env:HEADLESS_DRIVER="$geckodriver_path\bin\geckodriver.exe"
 
-headless_ie_selenium.exe --port $args
+geckodriver.exe $args
