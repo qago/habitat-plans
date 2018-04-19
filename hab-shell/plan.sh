@@ -36,6 +36,7 @@ do_prepare() {
 
 do_install() {
     cp $PLAN_CONTEXT/bin/hab-shell.sh $pkg_prefix/bin/hab-shell
+    cp $PLAN_CONTEXT/bin/hab-shell.sh $pkg_prefix/bin/hab-shell.sh
 }
 
 _install_dependency() {
