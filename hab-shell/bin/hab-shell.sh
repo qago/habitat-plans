@@ -25,6 +25,11 @@ while (( "$#" )); do
 	    HAB_SHELL_PLAN="$2"
 	    shift 2
 	    ;;
+	-s|--sandbox)
+	    HAB_SHELL_USE_SANDBOX=1
+	    shift 1
+	    ;;
+
 	--) # end argument parsing
 	    shift
 	    break
@@ -44,7 +49,7 @@ pkg_include=""
 
 for pkg in "${pkg_deps[@]}"
 do
-    hab pkg path $pkg || sudo hab pkg install $pkg
+    hab pkg path $pkg > /dev/null 2>&1 || sudo hab pkg install $pkg
     env="$(hab pkg env $pkg)"
     cur_path=$(echo $env | grep PATH= | awk -F "=" '{print $2}' | sed 's/"//g')
     cur_lib=$(echo $env | grep LIB= | awk -F "=" '{print $2}' | sed 's/"//g')
@@ -54,11 +59,17 @@ do
     pkg_include="$pkg_path:$cur_include"
 done
 
-export PATH=$pkg_path
-export LIB=$pkg_lib
-export INCLUDE=$pkg_include
-
 export HAB_SHELL_PLAN=$(realpath $HAB_SHELL_PLAN)
+
+if [[ ! -z "$HAB_SHELL_USE_SANDBOX" ]]; then
+    unset PATH
+    unset LIB
+    unset INCLUDE
+fi
+
+export PATH=$pkg_path:$PATH
+export LIB=$pkg_lib:$LIB
+export INCLUDE=$pkg_include:$INCLUDE
 
 do_shell
 if [[ ! -z "$HAB_SHELL_COMMAND" ]]; then
