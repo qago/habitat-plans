@@ -5,7 +5,7 @@ exec 2>&1
 export JAVA_HOME="{{pkgPathFor "core/jre8"}}"
 export JENKINS_HOME="{{pkg.svc_data_path}}"
 export JENKINS_USER=hab
-export HOME="{{pkg.svc_data_path}}"
+export HOME="/home/hab"
 
 exec java \
   {{cfg.java.opts}} \
