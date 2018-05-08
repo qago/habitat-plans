@@ -1,9 +1,0 @@
-[platform]
-windows=true
-
-[settings.browsers.ie]
-name = 'internet explorer'
-
-[[settings.browsers.ie.windows.versions]]
-browser = '11'
-driver = '3.4'
