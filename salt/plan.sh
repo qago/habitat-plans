@@ -36,9 +36,8 @@ do_prepare() {
 }
 
 do_setup_environment() {
-    push_runtime_env PYTHONPATH "$(pkg_path_for core/python)/lib/python3.6/site-packages"
     push_runtime_env PYTHONPATH "${pkg_prefix}/lib/python3.6/site-packages"
-    set_runtime_env LD_LIBRARY_PATH "$(pkg_path_for qago/openssl)/lib"
+    push_runtime_env LD_LIBRARY_PATH "$(pkg_path_for qago/openssl)/lib"
 }
 
 do_build() {

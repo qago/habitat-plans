@@ -1,19 +1,4 @@
-#!/usr/bin/env sh
-# -*- coding: utf-8 -*-
-
 set -e
-
-upsearch () {
-    slashes=${PWD//[^\/]/}
-    directory="$PWD"
-    for (( n=${#slashes}; n>0; --n ))
-    do
-	test -e "$directory/$1" && echo "$directory/$1" && return 
-	directory="$directory/.."
-    done
-}
-
-HAB_SHELL_PLAN=$(upsearch plan.sh)
 
 while (( "$#" )); do
     case "$1" in
@@ -41,48 +26,26 @@ while (( "$#" )); do
     esac
 done
 
-. $(realpath $HAB_SHELL_PLAN)
+upsearch () {
+    slashes=${PWD//[^\/]/}
+    directory="$PWD"
+    for (( n=${#slashes}; n>0; --n ))
+    do
+	test -e "$directory/$1" && echo "$directory" && return 
+	directory="$directory/.."
+    done
+}
 
-pkg_path=""
-pkg_lib=""
-pkg_include=""
+cd $(upsearch plan.sh)
 
-for pkg in "${pkg_deps[@]}"
-do
-    hab pkg path $pkg > /dev/null 2>&1 || sudo hab pkg install $pkg
-    env="$(hab pkg env $pkg)"
-    cur_path=$(echo $env | grep PATH= | awk -F "=" '{print $2}' | sed 's/"//g')
-    cur_lib=$(echo $env | grep LIB= | awk -F "=" '{print $2}' | sed 's/"//g')
-    cur_include=$(echo $env | grep INCLUDE= | awk -F "=" '{print $2}' | sed 's/"//g')
-    pkg_path="$pkg_path:$cur_path"
-    pkg_lib="$pkg_lib:$cur_lib"
-    pkg_include="$pkg_include:$cur_include"
-done
+. results/last_build.env
+hab pkg path $pkg_ident || sudo hab pkg install results/$pkg_artifact
+. ./plan.sh
 
-export HAB_SHELL_PLAN=$(realpath $HAB_SHELL_PLAN)
+HAB_SHELL_FULL_CMD=". ~/.bashrc; . ./plan.sh; do_shell"
 
-if [[ ! -z "$HAB_SHELL_USE_SANDBOX" ]]; then
-    unset PATH
-    unset LIB
-    unset INCLUDE
-fi
-
-export PATH=$pkg_path:$PATH
-export LIB=$pkg_lib:$LIB
-export INCLUDE=$pkg_include:$INCLUDE
-
-do_shell
 if [[ ! -z "$HAB_SHELL_COMMAND" ]]; then
-    do_shell_command() {
-    	$HAB_SHELL_COMMAND
-    }
+    HAB_SHELL_FULL_CMD="$HAB_SHELL_FULL_CMD; $HAB_SHELL_COMMAND; exit 1"
 fi
 
-if typeset -f do_shell_command > /dev/null
-then
-    do_shell_command
-else
-    if typeset -f do_shell_login > /dev/null; then
-	do_shell_login
-    fi
-fi
+do_shell_interpreter --rcfile <(echo $HAB_SHELL_FULL_CMD)

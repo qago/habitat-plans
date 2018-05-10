@@ -1,6 +1,6 @@
 pkg_name=openssl
 pkg_distname=$pkg_name
-pkg_origin=core
+pkg_origin=qago
 pkg_version=1.1.0h
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_description="OpenSSL is an open source project that provides a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols. It is also a general-purpose cryptography library."
