@@ -55,8 +55,8 @@ do
     cur_lib=$(echo $env | grep LIB= | awk -F "=" '{print $2}' | sed 's/"//g')
     cur_include=$(echo $env | grep INCLUDE= | awk -F "=" '{print $2}' | sed 's/"//g')
     pkg_path="$pkg_path:$cur_path"
-    pkg_lib="$pkg_path:$cur_lib"
-    pkg_include="$pkg_path:$cur_include"
+    pkg_lib="$pkg_lib:$cur_lib"
+    pkg_include="$pkg_include:$cur_include"
 done
 
 export HAB_SHELL_PLAN=$(realpath $HAB_SHELL_PLAN)
