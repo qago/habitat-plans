@@ -11,6 +11,7 @@ pkg_source=https://github.com/saltstack/salt/releases/download/v${pkg_version}/s
 pkg_shasum=d41ff6d5962361e92e926db8f24c5f2284817f9f78128b2546527258a3a2d8c6
 pkg_deps=(
     core/python
+    core/gcc
     qago/openssl
 )
 
@@ -37,13 +38,13 @@ do_prepare() {
 do_setup_environment() {
     push_runtime_env PYTHONPATH "$(pkg_path_for core/python)/lib/python3.6/site-packages"
     push_runtime_env PYTHONPATH "${pkg_prefix}/lib/python3.6/site-packages"
-    push_runtime_env LD_LIBRARY_PATH "$(pkg_path_for qago/openssl)/lib"
+    set_runtime_env LD_LIBRARY_PATH "$(pkg_path_for qago/openssl)/lib"
 }
 
 do_build() {
-    python setup.py build
+    return 0
 }
 
 do_install() {
-    python setup.py install --prefix="$pkg_prefix" --optimize=1 --skip-build
+    pip install . --prefix="$pkg_prefix"
 }
