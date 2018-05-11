@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
 set -e
 
 while (( "$#" )); do
@@ -42,10 +45,10 @@ cd $(upsearch plan.sh)
 hab pkg path $pkg_ident || sudo hab pkg install results/$pkg_artifact
 . ./plan.sh
 
-HAB_SHELL_FULL_CMD=". ~/.bashrc; . ./plan.sh; do_shell"
+HAB_SHELL_FULL_CMD=". ./plan.sh; do_shell"
 
 if [[ ! -z "$HAB_SHELL_COMMAND" ]]; then
-    HAB_SHELL_FULL_CMD="$HAB_SHELL_FULL_CMD; $HAB_SHELL_COMMAND; exit 1"
+    HAB_SHELL_FULL_CMD="$HAB_SHELL_FULL_CMD; $HAB_SHELL_COMMAND; exit $?"
 fi
 
 do_shell_interpreter --rcfile <(echo $HAB_SHELL_FULL_CMD)
