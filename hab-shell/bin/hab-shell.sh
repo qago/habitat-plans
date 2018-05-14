@@ -45,7 +45,9 @@ cd $(upsearch plan.sh)
 hab pkg path $pkg_ident || sudo hab pkg install results/$pkg_artifact
 . ./plan.sh
 
-HAB_SHELL_FULL_CMD=". ./plan.sh; do_shell"
+HAB_SHELL_FULL_CMD=". $(upsearch plan.sh)/plan.sh; do_shell"
+
+cd -
 
 if [[ ! -z "$HAB_SHELL_COMMAND" ]]; then
     HAB_SHELL_FULL_CMD="$HAB_SHELL_FULL_CMD; $HAB_SHELL_COMMAND"
