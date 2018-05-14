@@ -48,7 +48,8 @@ hab pkg path $pkg_ident || sudo hab pkg install results/$pkg_artifact
 HAB_SHELL_FULL_CMD=". ./plan.sh; do_shell"
 
 if [[ ! -z "$HAB_SHELL_COMMAND" ]]; then
-    HAB_SHELL_FULL_CMD="$HAB_SHELL_FULL_CMD; $HAB_SHELL_COMMAND; exit $?"
+    HAB_SHELL_FULL_CMD="$HAB_SHELL_FULL_CMD; $HAB_SHELL_COMMAND"
+    hab pkg exec $pkg_ident $pkg_hab_shell_interpreter -c "$HAB_SHELL_FULL_CMD"
+else
+    hab pkg exec $pkg_ident $pkg_hab_shell_interpreter --rcfile <(echo $HAB_SHELL_FULL_CMD)
 fi
-
-do_shell_interpreter --rcfile <(echo $HAB_SHELL_FULL_CMD)
