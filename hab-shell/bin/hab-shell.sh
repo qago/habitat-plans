@@ -42,17 +42,40 @@ upsearch () {
     done
 }
 
+pkg_rebuild () {
+    mkdir -p .hab-shell/linux
+    cp plan.sh .hab-shell/linux
+    pushd .hab-shell/linux > /dev/null
+
+    . ./plan.sh
+
+    plan_pkg_origin=$pkg_origin
+    plan_pkg_version=$pkg_version
+
+    if [ ! -f "results/last_build.env" ]; then
+	rm results -rf
+	hab studio build -R .
+    fi
+
+    . results/last_build.env
+
+    if [ ! "$plan_pkg_version" == "$pkg_version" ]; then
+	rm results -rf
+	hab studio build -R .
+	. results/last_build.env
+    fi
+
+    hab pkg path $pkg_ident > /dev/null || sudo hab pkg install results/$pkg_artifact
+    popd > /dev/null
+}
+
 PLAN_SH_DIRECTORY=$(upsearch $HAB_SHELL_PLAN)
+pushd $PLAN_SH_DIRECTORY > /dev/null
 
-cd $PLAN_SH_DIRECTORY
+pkg_rebuild
 
-. results/last_build.env
-hab pkg path $pkg_ident || sudo hab pkg install results/$pkg_artifact
-. $HAB_SHELL_PLAN
-
+popd > /dev/null
 HAB_SHELL_FULL_CMD=". $PLAN_SH_DIRECTORY/plan.sh; do_shell"
-
-cd -
 
 if [[ ! -z "$HAB_SHELL_COMMAND" ]]; then
     HAB_SHELL_FULL_CMD="$HAB_SHELL_FULL_CMD; $HAB_SHELL_COMMAND"
