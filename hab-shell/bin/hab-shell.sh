@@ -3,14 +3,17 @@
 
 set -e
 
+HAB_SHELL_PLAN=./plan.sh
+HAB_SHELL_DIRECTORY=$PWD
+
 while (( "$#" )); do
     case "$1" in
 	-c|--command)
 	    HAB_SHELL_COMMAND="$2"
 	    shift 2
 	    ;;
-	-p|--plan)
-	    HAB_SHELL_PLAN="$2"
+	-d|--directory)
+	    HAB_SHELL_DIRECTORY="$( cd "$2" && pwd )"
 	    shift 2
 	    ;;
 	-s|--sandbox)
@@ -30,8 +33,8 @@ while (( "$#" )); do
 done
 
 upsearch () {
-    slashes=${PWD//[^\/]/}
-    directory="$PWD"
+    slashes=${HAB_SHELL_DIRECTORY//[^\/]/}
+    directory="$HAB_SHELL_DIRECTORY"
     for (( n=${#slashes}; n>0; --n ))
     do
 	test -e "$directory/$1" && echo "$directory" && return 
@@ -39,13 +42,15 @@ upsearch () {
     done
 }
 
-cd $(upsearch plan.sh)
+PLAN_SH_DIRECTORY=$(upsearch $HAB_SHELL_PLAN)
+
+cd $PLAN_SH_DIRECTORY
 
 . results/last_build.env
 hab pkg path $pkg_ident || sudo hab pkg install results/$pkg_artifact
-. ./plan.sh
+. $HAB_SHELL_PLAN
 
-HAB_SHELL_FULL_CMD=". $(upsearch plan.sh)/plan.sh; do_shell"
+HAB_SHELL_FULL_CMD=". $PLAN_SH_DIRECTORY/plan.sh; do_shell"
 
 cd -
 
