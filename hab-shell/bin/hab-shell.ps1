@@ -21,27 +21,41 @@ function UpSearch($f) {
 }
 
 $PLAN_PS1_DIRECTORY=$(UpSearch $HAB_SHELL_PLAN)
-
 pushd $PLAN_PS1_DIRECTORY
 
-if (-Not $(Test-Path("$PLAN_PS1_DIRECTORY/results/last_build.env"))) {
+mkdir -p .hab-shell/windows -ErrorAction SilentlyContinue
+cp plan.ps1 .hab-shell/windows
+
+pushd .hab-shell/windows
+
+. ./plan.ps1
+
+$plan_pkg_origin=$pkg_origin
+$plan_pkg_version=$pkg_version
+
+if (-Not $(Test-Path("./results/last_build.env"))) {
     hab studio build -w -R .
 }
 
-$last_build_env = $(Get-Content "$PLAN_PS1_DIRECTORY/results/last_build.env")
-
+$last_build_env = $(Get-Content "./results/last_build.env")
 $pkg_artifact = $($last_build_env | Select-String pkg_artifact).Line.split('=')[1]
 $pkg_ident = $($last_build_env | Select-String pkg_ident).Line.split('=')[1]
+
+If (-Not ("$pkg_version" -eq "$plan_pkg_version")) {
+    hab studio build -w -R .
+    $last_build_env = $(Get-Content "./results/last_build.env")
+    $pkg_artifact = $($last_build_env | Select-String pkg_artifact).Line.split('=')[1]
+    $pkg_ident = $($last_build_env | Select-String pkg_ident).Line.split('=')[1]
+}
 
 If (-Not $(& hab pkg path $pkg_ident)) {
     hab pkg install results/$pkg_artifact
 }
 
-. $PLAN_PS1_DIRECTORY/plan.ps1
-
-$HAB_SHELL_FULL_CMD = ". $PLAN_PS1_DIRECTORY/plan.ps1; Invoke-Shell"
-
 popd
+popd
+
+$HAB_SHELL_FULL_CMD = ". ./plan.ps1; Invoke-Shell"
 
 if ($command) {
     $HAB_SHELL_FULL_CMD = "$HAB_SHELL_FULL_CMD; $command"
