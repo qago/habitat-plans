@@ -1,66 +1,52 @@
 Param (
     [alias("c")][string]$command = $null,
-    [alias("p")][string]$plan = $null
+    [alias("d")][string]$directory = $PWD,
+    [alias("s")][string]$sanbox = $null
 )
+
+$HAB_SHELL_PLAN="./plan.ps1"
 
 function UpSearch($f) {
     if (Test-Path "$f") {
-	return "$PWD/$f"
+	return "$directory"
     }
     else {
 	$parent=$PWD
 	cd ..
-	if ("$PWD" -eq "$parent") {
+	if ("$directory" -eq "$parent") {
 	    return 1
 	}
 	UpSearch $f
     }
 }
 
-if (-Not $plan) {
-    $plan = $(UpSearch "plan.ps1")
+$PLAN_PS1_DIRECTORY=$(UpSearch $HAB_SHELL_PLAN)
+
+pushd $PLAN_PS1_DIRECTORY
+
+if (-Not $(Test-Path("$PLAN_PS1_DIRECTORY/results/last_build.env"))) {
+    hab studio build -w -R .
 }
 
-if (-Not $(Test-Path("$plan"))) {
-    write "Invalid path: $plan"
-    exit 1
+$last_build_env = $(Get-Content "$PLAN_PS1_DIRECTORY/results/last_build.env")
+
+$pkg_artifact = $($last_build_env | Select-String pkg_artifact).Line.split('=')[1]
+$pkg_ident = $($last_build_env | Select-String pkg_ident).Line.split('=')[1]
+
+If (-Not $(& hab pkg path $pkg_ident)) {
+    hab pkg install results/$pkg_artifact
 }
 
-. $plan
+. $PLAN_PS1_DIRECTORY/plan.ps1
 
-$envLib = @{LIB=@(); PATH=@(); INCLUDE=@()}
+$HAB_SHELL_FULL_CMD = ". $PLAN_PS1_DIRECTORY/plan.ps1; Invoke-Shell"
 
-Foreach ($pkg in $pkg_deps) {
-    if (-Not $(hab pkg env $pkg)) {
-	hab pkg install $pkg
-    }
-    Foreach ($env_var in @("PATH", "LIB", "INCLUDE")) {
-	# echo $env_var
-	$env_var_entry = $(hab pkg env $pkg | Select-String "$env_var=")
-	If ($env_var_entry) {
-	    $env_value = $env_var_entry.Line.split("=")[1].Replace('"', '')
-	    $envLib[$env_var] += $env_value
-	}
-    }
-}
-
-$env:PATH = [String]::Join(";", $envLib['PATH'])
-$env:LIB = [String]::Join(";", $envLib['LIB'])
-$env:INCLUDE = [String]::Join(";", $envLib['INCLUDE'])
-
-Invoke-Shell
+popd
 
 if ($command) {
-    function Invoke-ShellCommand {
-	& $command
-    }
-}
-
-if (Get-Command "Invoke-ShellCommand" -errorAction SilentlyContinue) {
-    Invoke-ShellCommand
+    $HAB_SHELL_FULL_CMD = "$HAB_SHELL_FULL_CMD; $command"
+    hab pkg exec $pkg_ident $pkg_hab_shell_interpreter -c "$HAB_SHELL_FULL_CMD"
 }
 else {
-    if (Get-Command "Invoke-ShellLogin" -errorAction SilentlyContinue) {
-	Invoke-ShellLogin
-    }
+    hab pkg exec $pkg_ident $pkg_hab_shell_interpreter -NoExit -c "$HAB_SHELL_FULL_CMD"
 }
