@@ -20,6 +20,18 @@ function UpSearch($f) {
     }
 }
 
+function HabShellSetup() {
+    mkdir -p $env:HOME/.hab-shell/cache -ErrorAction SilentlyContinue
+    if (-Not $(Test-Path("$env:HOME/.hab-shell/cache/keys"))) {
+	cp -r $PSScriptRoot/../keys $env:HOME/.hab-shell/
+    }
+    $env:HAB_CACHE_KEY_PATH="$env:HOME/.hab-shell/cache/keys"
+    $env:HAB_ORIGIN="hab-shell"
+    }
+}
+
+HabShellSetup
+
 $PLAN_PS1_DIRECTORY=$(UpSearch $HAB_SHELL_PLAN)
 pushd $PLAN_PS1_DIRECTORY
 

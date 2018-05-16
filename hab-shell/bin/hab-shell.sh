@@ -42,6 +42,17 @@ upsearch () {
     done
 }
 
+hab_shell_setup () {
+    mkdir -p $HOME/.hab-shell/cache
+
+    if [ ! -d "$HOME/.hab-shell/cache/keys" ]; then
+	cp -r "$( builtin cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/../keys" $HOME/.hab-shell/cache
+    fi
+    
+    export HAB_CACHE_KEY_PATH="$HOME/.hab-shell/cache/keys"
+    export HAB_ORIGIN="hab-shell"
+}
+
 pkg_rebuild () {
     mkdir -p .hab-shell/linux
     cp plan.sh .hab-shell/linux
@@ -61,13 +72,16 @@ pkg_rebuild () {
 
     if [ ! "$plan_pkg_version" == "$pkg_version" ]; then
 	rm results -rf
-	hab studio build -R .
+
+	hab pkg build -R .
 	. results/last_build.env
     fi
 
     hab pkg path $pkg_ident > /dev/null || sudo hab pkg install results/$pkg_artifact
     popd > /dev/null
 }
+
+hab_shell_setup
 
 PLAN_SH_DIRECTORY=$(upsearch $HAB_SHELL_PLAN)
 pushd $PLAN_SH_DIRECTORY > /dev/null
