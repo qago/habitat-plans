@@ -52,12 +52,14 @@ if (-Not $(Test-Path("./results/last_build.env"))) {
 $last_build_env = $(Get-Content "./results/last_build.env")
 $pkg_artifact = $($last_build_env | Select-String pkg_artifact).Line.split('=')[1]
 $pkg_ident = $($last_build_env | Select-String pkg_ident).Line.split('=')[1]
+$pkg_version = $($last_build_env | Select-String pkg_version).Line.split('=')[1]
 
 If (-Not ("$pkg_version" -eq "$plan_pkg_version")) {
     hab studio build -w -R .
     $last_build_env = $(Get-Content "./results/last_build.env")
     $pkg_artifact = $($last_build_env | Select-String pkg_artifact).Line.split('=')[1]
     $pkg_ident = $($last_build_env | Select-String pkg_ident).Line.split('=')[1]
+    $pkg_version = $($last_build_env | Select-String pkg_version).Line.split('=')[1]
 }
 
 If (-Not $(& hab pkg path $pkg_ident)) {

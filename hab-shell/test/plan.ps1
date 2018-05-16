@@ -1,6 +1,6 @@
 $pkg_name="hab-shell-test"
 $pkg_origin="qago"
-$pkg_version="1.0.0"
+$pkg_version="1.0.3"
 $pkg_deps=@(
     "qago/python/3.4.4",
     "core/powershell/6.0.0/20180124123643",
