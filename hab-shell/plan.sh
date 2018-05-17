@@ -38,6 +38,7 @@ do_install() {
     cp $PLAN_CONTEXT/bin/hab-shell.sh $pkg_prefix/bin/hab-shell
     cp $PLAN_CONTEXT/bin/hab-shell.sh $pkg_prefix/bin/hab-shell.sh
     cp $PLAN_CONTEXT/bin/hab-shell-setup.sh $pkg_prefix/bin/hab-shell-setup.sh
+    cp -r $PLAN_CONTEXT/keys $pkg_prefix/keys
 }
 
 _install_dependency() {
