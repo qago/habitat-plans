@@ -40,4 +40,6 @@ New-Item -Force -Path $chrome_path\bin\chromedriver.exe -ItemType SymbolicLink -
 
 $env:HEADLESS_DRIVER="$chrome_path\bin\chromedriver.exe"
 
-headless_ie_selenium.exe --port $args
+# headless_ie_selenium.exe --port $args
+
+& $chrome_path\bin\chromedriver.exe $args
