@@ -15,4 +15,5 @@ function Invoke-Unpack { }
 function Invoke-Install {
     cp $PLAN_CONTEXT/bin/hab-shell.ps1 $pkg_prefix/bin -Recurse -Force
     cp $PLAN_CONTEXT/bin/hab-shell.bat $pkg_prefix/bin -Recurse -Force
+    cp $PLAN_CONTEXT/keys $pkg_prefix/keys -Recurse -Force
 }
