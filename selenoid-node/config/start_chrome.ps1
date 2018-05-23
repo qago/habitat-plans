@@ -40,6 +40,18 @@ New-Item -Force -Path $chrome_path\bin\chromedriver.exe -ItemType SymbolicLink -
 
 $env:HEADLESS_DRIVER="$chrome_path\bin\chromedriver.exe"
 
-# headless_ie_selenium.exe --port $args
+# $driver_pid = Start-Process -NoNewWindow -PassThru headless_ie_selenium. -ArgumentList $args
+$driver_pid = Start-Process -NoNewWindow -PassThru $chrome_path\bin\chromedriver.exe -ArgumentList $args
 
-& $chrome_path\bin\chromedriver.exe $args
+$current_pid = Get-Process -Id $pid
+
+echo $current_pid.Id
+echo $current_pid.Parent.Id
+
+$current_pid.Parent.waitforexit()
+
+echo 'parent done'
+echo 'terminating driver pid by childs'
+
+c:/Windows/system32/taskkill.exe /F /T /PID $driver_pid.Id
+
