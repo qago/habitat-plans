@@ -1,6 +1,6 @@
 pkg_name=jenkins-service
 pkg_origin=qago
-pkg_version='1.0.21'
+pkg_version='1.0.23'
 pkg_description="Jenkins service"
 pkg_maintainer='QAGO Maintainers'
 pkg_license=('LGPL-2.1')
@@ -9,7 +9,7 @@ pkg_source=_no_pkg_source_
 pkg_shasum=_no_pkg_shasum_
 
 pkg_deps=(
-    core/jenkins/2.89.4/20180403233836
+    core/jenkins/2.107.1
     core/wget
     core/netcat
     core/bash

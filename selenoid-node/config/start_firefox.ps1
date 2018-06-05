@@ -36,4 +36,16 @@ $env:INCLUDE = [String]::Join(";", $envLib['INCLUDE'])
 
 $env:HEADLESS_DRIVER="$geckodriver_path\bin\geckodriver.exe"
 
-geckodriver.exe $args
+$driver_pid = Start-Process -NoNewWindow -PassThru geckodriver.exe -ArgumentList $args
+$current_pid = Get-Process -Id $pid
+
+echo $current_pid.Id
+echo $current_pid.Parent.Id
+
+$current_pid.Parent.waitforexit()
+
+echo 'parent done'
+echo 'terminating driver pid by childs'
+
+c:/Windows/system32/taskkill.exe /F /T /PID $driver_pid.Id
+
