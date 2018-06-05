@@ -12,7 +12,7 @@ pkg_deps=(qago/ggr core/httpd)
 
 for i in `seq 1 100`;
 do
-    pkg_binds_optional[selenoid-node$i]=[settings]
+    pkg_binds_optional[selenoid-node$i]="settings"
 done
 
 do_download() {
