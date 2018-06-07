@@ -1,1 +1,33 @@
-sshd -D -f {{pkg.svc_config_path}}/sshd_config
+# sshd -D -f {{pkg.svc_config_path}}/sshd_config
+
+$task="sshd_task"
+
+c:/Windows/system32/schtasks.exe /Run /TN sshd_task
+
+while($true) {
+    $status=c:/Windows/system32/schtasks.exe /query /tn $task | select-string $task
+    echo $status
+    if($status.tostring().substring(64,7) -eq "Running") {
+	break
+    }
+    else {
+	Write-Host -NoNewline "."
+    }
+    start-sleep -s 1
+}
+
+Write-Host -NoNewline "$task execution ."
+while($true) {
+    $status=schtasks /query /tn $task | select-string $task
+    if($status.tostring().substring(64,7) -eq "Running") {
+	Write-Host -NoNewline "."
+    }
+    else {
+	if($status.tostring().substring(64,5) -eq "Ready") {
+	    break
+	}
+    }
+    start-sleep -s 1
+}
+
+Write-Host "Done"

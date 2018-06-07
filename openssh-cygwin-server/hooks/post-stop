@@ -1,0 +1,1 @@
+c:/Windows/system32/schtasks.exe /End /TN sshd_task

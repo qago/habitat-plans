@@ -25,3 +25,5 @@ If (-Not (Test-Path "{{pkg.svc_config_path}}/ssh_host_ecdsa_key")) {
     cmd /c 'ssh-keygen -t ecdsa -f {{pkg.svc_config_path}}/ssh_host_ecdsa_key -N ""'
     chmod 0400 /cygdrive/c/hab/svc/openssh-cygwin-server/config/ssh_host_ecdsa_key
 }
+
+c:/Windows/system32/schtasks.exe /Create /RU Administrator /SC ONCE /ST 00:00 /SD 01/01/2099 /RP setup /IT /tn sshd_task /tr "{{pkg.svc_config_path}}\sshd_task.bat" /f
