@@ -51,4 +51,20 @@ if (-Not $(hab pkg env $iedriver_pkg)) {
 }
 {{/each }}
 
+
+$selenoid_task_ps1_content=@"
+`$env:PATH=`"$env:PATH`"
+`$proc=Start-Process -PassThru -NoNewWindow -FilePath selenoid.exe -ArgumentList `"-conf {{pkg.svc_config_path}}/browsers.json -video-output-dir {{pkg.svc_data_path}}`"
+`$pid_file=`"{{pkg.svc_path}}/SELENOID_PID`"
+New-Item `$pid_file -itemtype file -force | OUT-NULL
+Add-Content `$pid_file `$proc.id
+Wait-Process `$proc.id
+"@
+$selenoid_task_ps1_file="{{pkg.svc_config_path}}\selenoid_task.ps1"
+
+New-Item $selenoid_task_ps1_file -itemtype file -force | OUT-NULL
+Add-Content $selenoid_task_ps1_file $selenoid_task_ps1_content
+
+c:/Windows/system32/schtasks.exe /Create /RU Administrator /SC ONCE /ST 00:00 /SD 01/01/2099 /RP setup /IT /tn selenoid_task /tr "{{pkgPathFor "core/powershell"}}\bin\pwsh.exe -w Hidden $selenoid_task_ps1_file" /f
+
 {{/if}}

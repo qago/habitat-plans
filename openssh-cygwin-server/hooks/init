@@ -28,7 +28,11 @@ If (-Not (Test-Path "{{pkg.svc_config_path}}/ssh_host_ecdsa_key")) {
 
 $sshd_task_ps1_content=@"
 `$env:PATH=`"$env:PATH`"
-Start-Process -PassThru -NoNewWindow -Wait -FilePath sshd.exe -ArgumentList `"-D -f {{pkg.svc_config_path}}/sshd_config`"
+`$proc=Start-Process -PassThru -NoNewWindow -FilePath sshd.exe -ArgumentList `"-D -f {{pkg.svc_config_path}}/sshd_config`"
+`$pid_file=`"{{pkg.svc_path}}/SSHD_PID`"
+New-Item `$pid_file -itemtype file -force | OUT-NULL
+Add-Content `$pid_file `$proc.id
+Wait-Process `$proc.id
 "@
 $sshd_task_ps1_file="{{pkg.svc_config_path}}\sshd_task.ps1"
 
