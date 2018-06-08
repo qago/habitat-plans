@@ -3,7 +3,7 @@ $pkg_origin="qago"
 $pkg_license=@("LGPL")
 $pkg_description="selenoid windows node"
 $pkg_maintainer="QAGO Maintainers"
-$pkg_version="1.0.1"
+$pkg_version="1.0.2"
 $pkg_deps=@("qago/selenoid/1.6.0")
 $pkg_svc_user="Administrator"
 
