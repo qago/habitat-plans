@@ -26,4 +26,13 @@ If (-Not (Test-Path "{{pkg.svc_config_path}}/ssh_host_ecdsa_key")) {
     chmod 0400 /cygdrive/c/hab/svc/openssh-cygwin-server/config/ssh_host_ecdsa_key
 }
 
-c:/Windows/system32/schtasks.exe /Create /RU Administrator /SC ONCE /ST 00:00 /SD 01/01/2099 /RP setup /IT /tn sshd_task /tr "{{pkg.svc_config_path}}\sshd_task.bat" /f
+$sshd_task_ps1_content=@"
+`$env:PATH=`"$env:PATH`"
+Start-Process -PassThru -NoNewWindow -Wait -FilePath sshd.exe -ArgumentList `"-D -f {{pkg.svc_config_path}}/sshd_config`"
+"@
+$sshd_task_ps1_file="{{pkg.svc_config_path}}\sshd_task.ps1"
+
+New-Item $sshd_task_ps1_file -itemtype file -force | OUT-NULL
+Add-Content $sshd_task_ps1_file $sshd_task_ps1_content
+
+c:/Windows/system32/schtasks.exe /Create /RU Administrator /SC ONCE /ST 00:00 /SD 01/01/2099 /RP setup /IT /tn sshd_task /tr "{{pkgPathFor "core/powershell"}}\bin\pwsh.exe -w Hidden $sshd_task_ps1_file" /f
