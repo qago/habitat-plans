@@ -65,7 +65,7 @@ pkg_rebuild () {
 
     if [ ! -f "results/last_build.env" ]; then
 	rm results -rf
-	hab studio build -R .
+	hab studio build .
     fi
 
     . results/last_build.env
@@ -73,7 +73,7 @@ pkg_rebuild () {
     if [ ! "$plan_pkg_version" == "$pkg_version" ]; then
 	rm results -rf
 
-	hab pkg build -R .
+	hab pkg build .
 	. results/last_build.env
     fi
 
