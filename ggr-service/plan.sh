@@ -1,6 +1,6 @@
 pkg_name=ggr-service
 pkg_origin=qago
-pkg_version='1.0.10'
+pkg_version='1.0.11'
 pkg_description="Selenoid Grid Router service"
 pkg_maintainer='QAGO Maintainers'
 pkg_license=('LGPL-2.1')

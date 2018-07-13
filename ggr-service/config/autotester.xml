@@ -7,7 +7,7 @@
 {{~#each browser_settings.windows.versions as |version|}}
 <version number="{{ version.browser }}">
 <region name="1">
-<host name="{{ member.sys.ip }}" port="{{ member.cfg.settings.port }}" count="{{member.cfg.settings.max_sessions}}"/>
+<host name="{{ member.sys.gossip_ip }}" port="{{ member.cfg.settings.port }}" count="{{member.cfg.settings.max_sessions}}"/>
 </region>
 </version>
 {{~/each}}
@@ -18,7 +18,7 @@
 {{~#each browser_settings.docker.versions as |version|}}
 <version number="{{ version.browser }}">
 <region name="1">
-<host name="{{ member.sys.ip }}" port="{{ member.cfg.settings.port }}" count="{{member.cfg.settings.max_sessions}}"/>
+<host name="{{ member.sys.gossip_ip }}" port="{{ member.cfg.settings.port }}" count="{{member.cfg.settings.max_sessions}}"/>
 </region>
 </version>
 {{~/each}}
