@@ -47,5 +47,5 @@ $current_pid.Parent.waitforexit()
 echo 'parent done'
 echo 'terminating driver pid by childs'
 
-c:/Windows/system32/taskkill.exe /F /T /PID $driver_pid.Id
+c:/Windows/system32/taskkill.exe /F /PID $driver_pid.Id
 
