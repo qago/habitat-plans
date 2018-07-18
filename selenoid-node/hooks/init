@@ -54,7 +54,7 @@ if (-Not $(hab pkg env $iedriver_pkg)) {
 
 $selenoid_task_ps1_content=@"
 `$env:PATH=`"$env:PATH`"
-`$proc=Start-Process -PassThru -NoNewWindow -RedirectStandardOutput {{pkg.svc_data_path}}/selenoid.stdout.log -RedirectStandardError {{pkg.svc_data_path}}/selenoid.stderr.log -FilePath selenoid.exe -ArgumentList `"-conf {{pkg.svc_config_path}}/browsers.json -video-output-dir {{pkg.svc_data_path}}`"
+`$proc=Start-Process -PassThru -NoNewWindow -RedirectStandardOutput {{pkg.svc_data_path}}/selenoid.stdout.log -RedirectStandardError {{pkg.svc_data_path}}/selenoid.stderr.log -FilePath selenoid.exe -ArgumentList `"-conf {{pkg.svc_config_path}}/browsers.json -limit 4 -service-startup-timeout 120s -session-attempt-timeout 120s -video-output-dir {{pkg.svc_data_path}}`"
 `$pid_file=`"{{pkg.svc_path}}/SELENOID_PID`"
 New-Item `$pid_file -itemtype file -force | OUT-NULL
 Add-Content `$pid_file `$proc.id

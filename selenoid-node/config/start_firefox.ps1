@@ -15,8 +15,7 @@ $pkg_deps=@(
 $envLib = @{LIB=@(); PATH=@(); INCLUDE=@()}
     
 Foreach ($pkg in $pkg_deps) {
-    hab pkg path $pkg
-    if (-Not $(hab pkg env $pkg)) {
+    if (-Not $(hab pkg path $pkg)) {
 	hab pkg install $pkg -c unstable
     }
     Foreach ($env_var in @("PATH", "LIB", "INCLUDE")) {

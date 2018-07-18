@@ -6,7 +6,7 @@
         "versions": {
             {{#each browser_settings.windows.versions as |version| ~}}
             {{#unless @first}},{{/unless}}"{{version.browser}}": {
-                "image": ["C:/Windows/SysWOW64/WindowsPowerShell/v1.0/powershell.exe", "C:/hab/svc/selenoid-node/config/wrapper.ps1", "-script", "C:/hab/svc/selenoid-node/config/start_{{browser}}.ps1", "-browser", "{{version.browser}}", "-driver", "{{version.driver}}"]
+                "image": ["pwsh", "C:/hab/svc/selenoid-node/config/wrapper.ps1", "-script", "C:/hab/svc/selenoid-node/config/start_{{browser}}.ps1", "-browser", "{{version.browser}}", "-driver", "{{version.driver}}"]
             }
             {{/each ~}}
         }
