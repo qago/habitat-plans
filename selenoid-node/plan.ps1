@@ -6,6 +6,12 @@ $pkg_maintainer="QAGO Maintainers"
 $pkg_version="1.0.6"
 $pkg_deps=@("qago/selenoid/1.6.0")
 $pkg_svc_user="Administrator"
+$pkg_deps=@(
+    "core/hab",
+    "core/powershell",
+    "qago/selenoid/1.7.1",
+    "qago/headless-selenium-for-win"
+)
 
 $pkg_exports=@{
   settings="settings"

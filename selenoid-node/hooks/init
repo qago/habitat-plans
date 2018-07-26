@@ -13,14 +13,8 @@ docker pull selenoid/vnc:firefox_{{version.browser}}
 {{#if cfg.platform.windows }}
 echo "hello from windows!"
 
-$headless_selenium_for_win_pkg = "qago/headless-selenium-for-win"
-
-if (-Not $(hab pkg env $headless_selenium_for_win_pkg)) {
-   hab pkg install $headless_selenium_for_win_pkg -c unstable
-}
-
 {{ #each cfg.settings.browsers.chrome.windows.versions as |version| ~}}
-$chrome_pkg = "qago/google-chrome/$("{{version.browser}}"  -replace 'w','')"
+$chrome_pkg = "qago/google-chrome/{{version.browser}}"
 $chromedriver_pkg = "qago/chromedriver/{{version.driver}}"
 
 if (-Not $(hab pkg env $chrome_pkg)) {
@@ -32,7 +26,7 @@ if (-Not $(hab pkg env $chromedriver_pkg)) {
 {{/each }}
 
 {{ #each cfg.settings.browsers.firefox.windows.versions as |version| ~}}
-$firefox_pkg = "qago/firefox/$("{{version.browser}}" -replace 'w','')"
+$firefox_pkg = "qago/firefox/{{version.browser}}"
 $geckodriver_pkg = "qago/geckodriver/{{version.driver}}"
 
 if (-Not $(hab pkg env $firefox_pkg)) {
@@ -50,7 +44,6 @@ if (-Not $(hab pkg env $iedriver_pkg)) {
    hab pkg install $iedriver_pkg -c unstable
 }
 {{/each }}
-
 
 $selenoid_task_ps1_content=@"
 `$env:PATH=`"$env:PATH`"
