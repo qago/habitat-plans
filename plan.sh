@@ -32,9 +32,6 @@ do_shell() {
     
     ruby_bundle_path=$HOME/.hab-shell/ruby/bundle/$RUBY_VERSION
 
-    echo "export GITHUB_TOKEN=$GITHUB_TOKEN" > "$( builtin cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/habitat/tmp/env.sh"
-    echo "\$env:GITHUB_TOKEN=\"$GITHUB_TOKEN\"" > "$( builtin cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/habitat/tmp/env.ps1"
-
     mkdir -p $ruby_bundle_path
     export BUNDLE_PATH=$ruby_bundle_path
 
