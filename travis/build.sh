@@ -18,7 +18,7 @@ if [[ "$(uname -s)" == "Linux" ]]; then # Linux setup
 	pushd /tmp > /dev/null
 	curl -L https://dl.bintray.com/habitat/stable/linux/x86_64/${HAB_FULL_NAME}.tar.gz -O
 	tar -xzf ${HAB_FULL_NAME}.tar.gz
-	cp ${HAB_FULL_NAME}/hab /usr/bin/hab
+	sudo cp ${HAB_FULL_NAME}/hab /usr/bin/hab
 	popd > /dev/null
     fi
     results=results
