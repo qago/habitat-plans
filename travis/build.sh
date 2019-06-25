@@ -4,6 +4,7 @@
 set -e
 
 export HAB_ORIGIN="qago"
+HAB_FULL_NAME='hab-0.79.0-20190409150529-x86_64-linux'
 
 if [[ -z "$tmp" ]]; then
     export TEMP=/tmp
@@ -13,7 +14,13 @@ if [[ "$(uname -s)" == "Linux" ]]; then # Linux setup
     echo "export GITHUB_TOKEN=$GITHUB_TOKEN" > habitat/tmp/env.sh
     os_name="linux"
     cp -rf provision/.hab $HOME/.hab
-    curl https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh | sudo bash
+    if [[ ! -f /usr/bin/hab ]]; then
+	pushd /tmp > /dev/null
+	curl -L https://dl.bintray.com/habitat/stable/linux/x86_64/${HAB_FULL_NAME}.tar.gz -O
+	tar -xzf ${HAB_FULL_NAME}.tar.gz
+	cp ${HAB_FULL_NAME}/hab /usr/bin/hab
+	popd > /dev/null
+    fi
     results=results
     last_build=results/last_build.env
 else # Windows setup

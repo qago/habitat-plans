@@ -1,0 +1,34 @@
+language: shell
+
+matrix:
+  include:
+  - name: "ggr-bin-linux"
+    env: HAB_PKG=ggr-bin-latest
+    os: linux
+  - name: "selenoid-bin-windows"
+    env: HAB_PKG=selenoid-bin-latest
+    os: windows
+  - name: "selenoid-bin-linux"
+    env: HAB_PKG=selenoid-bin-latest
+    os: linux
+  - name: "geckodriver-bin-windows"
+    env: HAB_PKG=geckodriver-bin-latest
+    os: windows
+  - name: "geckodriver-bin-linux"
+    env: HAB_PKG=geckodriver-bin-latest
+    os: linux
+  - name: "chromedriver-bin-windows"
+    env: HAB_PKG=chromedriver-bin-latest
+    os: windows
+  - name: "chromedriver-bin-linux"
+    env: HAB_PKG=chromedriver-bin-latest
+    os: linux
+  - name: "firefox-windows"
+    env: HAB_PKG=firefox-latest
+    os: windows
+  - name: "google-chrome-windows"
+    env: HAB_PKG=google-chrome
+    os: windows
+
+script:
+  - bash ./travis/build.sh
