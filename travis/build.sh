@@ -30,8 +30,8 @@ else # Windows setup
     if [[ ! -x $(command -v hab) ]]; then
 	choco install habitat --version 0.79.0
     fi
-    results=habitat/${HAB_PKG}/results
-    last_build=habitat/${HAB_PKG}/results/last_build.ps1
+    results=results
+    last_build=results/last_build.ps1
 fi
 
 hab studio build habitat/${HAB_PKG}
