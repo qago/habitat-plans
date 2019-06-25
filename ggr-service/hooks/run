@@ -1,1 +1,0 @@
-exec ggr -users {{pkg.svc_data_path}}/etc/grid-router/users.htpasswd -quotaDir {{pkg.svc_config_path}}

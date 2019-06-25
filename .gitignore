@@ -1,6 +1,5 @@
-results
-RESULTS
+/results
+/bin
+.hab.tar
+.bundle
 .kitchen
-.kitchen.yml
-.kitchen.local.yml
-results/

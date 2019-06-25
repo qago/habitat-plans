@@ -1,4 +1,0 @@
-c:/Windows/system32/schtasks.exe /End /TN selenoid_task
-
-$selenoid_pid=Get-Content -Path "{{pkg.svc_path}}/SELENOID_PID"
-c:/Windows/system32/taskkill.exe /f /t /pid $selenoid_pid

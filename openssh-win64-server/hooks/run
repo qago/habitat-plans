@@ -1,1 +1,0 @@
-sshd -d -f {{pkg.svc_config_path}}/sshd_config

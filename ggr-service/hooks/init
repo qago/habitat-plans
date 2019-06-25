@@ -1,2 +1,0 @@
-mkdir -p {{pkg.svc_data_path}}/etc/grid-router
-htpasswd -bc {{pkg.svc_data_path}}/etc/grid-router/users.htpasswd autotester goqa
