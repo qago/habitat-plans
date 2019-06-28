@@ -29,6 +29,9 @@ matrix:
   - name: "google-chrome-windows"
     env: HAB_PKG=google-chrome
     os: windows
+  - name: "jenkins"
+    env: HAB_PKG=jenkins
+    os: linux
 
 script:
   - bash ./travis/build.sh
