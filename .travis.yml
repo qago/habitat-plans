@@ -5,6 +5,9 @@ matrix:
   - name: "ggr-bin-linux"
     env: HAB_PKG=ggr-bin-latest
     os: linux
+  - name: "ggr-ui-bin-linux"
+    env: HAB_PKG=ggr-ui-bin-latest
+    os: linux
   - name: "selenoid-bin-windows"
     env: HAB_PKG=selenoid-bin-latest
     os: windows
