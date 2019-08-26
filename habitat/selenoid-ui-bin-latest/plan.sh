@@ -16,7 +16,7 @@ do_before() {
 }
 
 update_pkg_version() {
-    pkg_version=$(get_latest_release "aerokube/selenoid")
+    pkg_version=$(get_latest_release "aerokube/selenoid-ui")
     pkg_source=https://github.com/aerokube/selenoid-ui/releases/download/${pkg_version}/selenoid-ui_linux_amd64
     pkg_artifact="$HAB_CACHE_ARTIFACT_PATH/${pkg_origin}-${pkg_name}-${pkg_version}-${pkg_release}-${pkg_target}.${_artifact_ext}"
     pkg_dirname="$pkg_name-$pkg_version"
