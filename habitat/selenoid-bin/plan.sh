@@ -1,7 +1,7 @@
 pkg_name=selenoid-bin
 pkg_origin=qago
 pkg_version='1.8.0'
-pkg_description="Geckodriver Binary"
+pkg_description="Selenoid binary"
 pkg_maintainer='QAGO members'
 pkg_license=('LGPL-2.1')
 pkg_upstream_url="https://github.com/aerokube/selenoid"
