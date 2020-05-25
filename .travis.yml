@@ -14,6 +14,9 @@ matrix:
   - name: "selenoid-bin-linux"
     env: HAB_PKG=selenoid-bin-latest
     os: linux
+  - name: "selenoid-s3-bin-linux"
+    env: HAB_PKG=selenoid-s3-bin-latest
+    os: linux
   - name: "selenoid-ui-bin-linux"
     env: HAB_PKG=selenoid-ui-bin-latest
     os: linux
